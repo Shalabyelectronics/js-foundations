@@ -1,7 +1,8 @@
 "module";
+//Add array methods exercises: map, filter, reduce
 const prices = [100, 250, 80, 420, 55];
 // Expected result: [115, 287.5, 92, 483, 63.25]
-const test = prices.map((number) => number + ((number * 15)/100));
+const test = prices.map((number) => number + (number * 15) / 100);
 console.log(test);
 
 const students = [
