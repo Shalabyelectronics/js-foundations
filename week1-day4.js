@@ -129,23 +129,34 @@ getUserTaskData(2);
 /*
 Exercise 4 — Error handling
 Copy your Exercise 3 function but change the URL to something broken:
-https://jsonplaceholder.typicode.com/users/99999
+https://jsonplaceholder.typicode.com/todosfd/${todoID}
 What happens? Handle it gracefully so the app doesn't crash — log a friendly message instead.
 */
 
 const getUserTaskData = async (todoID = 1) => {
   try {
     const userDataRequest = await fetch(
-      `https://jsonplaceholder.typicode.com/todosfd/${todoID}`,
+      `https://jsonplaceholder.typicode.com/todos/${todoID}`,
     );
+    if (!userDataRequest.ok) {
+      throw new Error(`Request failed with status: ${userDataRequest.status}`);
+    }
     const userData = await userDataRequest.json();
-    console.log("Task ID : ",userData.id);
-    console.log("todo title : ",userData.title);
-    console.log("todo status : ",userData.completed ? "Done" : "Not done yet.");
+    console.log("Task ID : ", userData.id);
+    console.log("todo title : ", userData.title);
+    console.log(
+      "todo status : ",
+      userData.completed ? "Done" : "Not done yet.",
+    );
   } catch (err) {
-    console.error("Error: ", err);
+    console.log(
+      "Sorry, we couldn't load the task. Please check your connection and try again.",
+      `For more details : \n${err}`,
+    );
   }
 };
 
 getUserTaskData(1);
 getUserTaskData(2);
+
+//Error Error:  TypeError: Failed to fetch at getUserTaskData (week1-day4.js:138:35) at week1-day4.js:151:1
